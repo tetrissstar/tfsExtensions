@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Added additional button to header: html Good view for TFS case - steps
 // @author       Anton Ternov
-// @match        *:8080/tfs/*
+// @include      *:8080/tfs/*
 // @grant        none
 // @downloadURL https://github.com/tetrissstar/tfsExtensions/raw/master/tfsGoodView_StepsInHtml.js
 // @updateURL https://github.com/tetrissstar/tfsExtensions/raw/master/tfsGoodView_StepsInHtml.js
