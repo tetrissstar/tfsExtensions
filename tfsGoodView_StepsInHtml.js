@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good view for TFS case: steps
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Added additional button to header: html Good view for TFS case - steps
 // @author       Anton Ternov
 // @include      *:8080/tfs/*
@@ -13,19 +13,25 @@
 (function() {
     'use strict';
 
+    function ConvertNewLinesToHtmlNewLine(incomingText)
+    {
+        return incomingText.replace(/(?:\r\n|\r|\n)/g, '<br>');
+    };
+
     function OpenGoodView(){
         var decodeEntities = function myDecodeEntities(encodedString) {
             var textArea = document.createElement('textarea');
             textArea.innerHTML = encodedString;
             return textArea.value;
         };
+
         var goodView = function myWindow1(title, ids, actions, descriptions) {
             var table = '<table border="1" bordercolor="#CCCCCC"><tr><th>Num</th><th>Step Desription</th><th></th><th>Expected Result</th></tr>\n';
             var mystring = "";
             var jsCompleted = "<script>function stepCompleted(idx){document.getElementById(\"row_\"+idx).className = document.getElementById(\"cb_\"+idx).checked ? \"checked\" : \"unchecked\";}</script>";
             var cssStyles = "<style type=\"text/css\">.checked{background-color:#ccffcc} .unchecked{background-color:#ffffff}</style>";
             for (var i = 0; i < actions.length; i++) {
-                table += '<tr id="row_' + i + '"><td>' + idxes[i] + '</td><td>' + actions[i] + '</td><td>' + '<input id="cb_' + i + '" type="checkbox" style="float:right" onclick="stepCompleted(' + i + ');"></td><td>' + expectedResults[i] + '</td></tr>\n';
+                table += '<tr id="row_' + i + '"><td>' + idxes[i] + '</td><td>' + ConvertNewLinesToHtmlNewLine(actions[i]) + '</td><td>' + '<input id="cb_' + i + '" type="checkbox" style="float:right" onclick="stepCompleted(' + i + ');"></td><td>' + ConvertNewLinesToHtmlNewLine(expectedResults[i]) + '</td></tr>\n';
             }
             table += '</table>\n';
             var myWindow1 = window.open('', 'myWindow1', 'scrollbars=1,height=' + Math.min(1200, screen.availHeight) + ',width=' + Math.min(1600, screen.availWidth));
