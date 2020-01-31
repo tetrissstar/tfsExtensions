@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good view for TFS case: steps
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Added additional button to header: html Good view for TFS case - steps
 // @author       Anton Ternov
 // @include      *:8080/tfs/*
