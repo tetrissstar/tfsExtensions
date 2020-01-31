@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Good view for TFS case: steps
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.3.1
 // @description  Added additional button to header: html Good view for TFS case - steps
 // @author       Anton Ternov
 // @include      *:8080/tfs/*
@@ -36,6 +36,7 @@
             table += '</table>\n';
             var myWindow1 = window.open('', 'myWindow1', 'scrollbars=1,height=' + Math.min(1200, screen.availHeight) + ',width=' + Math.min(1600, screen.availWidth));
             myWindow1.document.write('<!DOCTYPE html>\n<title>' + title + '</title>\n<head><meta charset="utf-8"><title>' + title + '</title>' + cssStyles + '</head>' + jsCompleted + '\n<body id="body"></body>\n<p>' + title + '</p>\n' + table + '\n</html>');
+            myWindow1.document.close();
         };
         var title = document.evaluate("//div[@class='workitem-info-bar']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
         var nodesArray = Array.prototype.slice.call(document.querySelectorAll(".work-items-right-pane > .work-item-form div.grid-row>div:nth-of-type(1)"));
